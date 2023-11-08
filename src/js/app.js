@@ -28,19 +28,50 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
-
+  let userName = `<h1>${variables.name} ${variables.lastName}</h1>`;
+  if (variables.names == null && variables.lastName == null) {
+    userName = "<h1>First name Last name</h1>";
+  }
+  if (variables.name == null && variables.lastName != null) {
+    userName = `<h1>Your name ${variables.lastName}</h1>`;
+  }
+  if (variables.lastName == null && variables.name != null) {
+    userName = `<h1>${variables.name} Your last name</h1>`;
+  }
+  let roles = `<h2>${variables.role}</h2>`;
+  if (variables.role == null) roles = "<h2>Choose your role</h2>";
+  let citizenship = `<h3>${variables.city} ${variables.country}</h3>`;
+  if (variables.city == null && variables.country == null) {
+    citizenship = "<h3>Choose your city and country</h3>";
+  }
+  if (variables.city == null && variables.country != null) {
+    citizenship = `<h3>Choose your city ${variables.country}</h3>`;
+  }
+  if (variables.country == null && variables.city != null) {
+    citizenship = `<h3>${variables.city} Choose your country</h3>`;
+  }
+  let logosPosition = `<ul class=${variables.socialMediaPosition}>`;
+  if (variables.socialMediaPosition == "position-right")
+    logosPosition = '<ul class="position-right">';
+  if (variables.socialMediaPosition == "position-left")
+    logosPosition = '<ul class="position-left">';
+  let twitterUser = `<li><a href="https://twitter.com/${variables.twitter}"><i class="fab fa-twitter"></i></a></li>`;
+  let githubUser = `<li><a href="https://github.com/${variables.github}"><i class="fab fa-github"></i></a></li>`;
+  let linkedinUser = `<li><a href="https://linkedin.com/${variables.linkedin}"><i class="fab fa-linkedin"></i></a></li>`;
+  let instagramUser = `<li><a href="https://instagram.com/${variables.instagram}"><i class="fab fa-instagram"></i></a></li>`;
+  let avatarPic = `<img src="${variables.avatarURL}" class="photo" />`;
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
-            ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/school/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          ${cover}
+          ${avatarPic}
+          ${userName}
+          ${roles}
+          ${citizenship}
+          ${logosPosition}
+            ${twitterUser}
+            ${githubUser}
+            ${linkedinUser}
+            ${instagramUser}
           </ul>
         </div>
     `;
